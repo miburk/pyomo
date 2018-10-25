@@ -28,8 +28,8 @@ Repeated Solves
    >>> model = pyo.ConcreteModel()
    >>> model.n = pyo.Param(default=4)
    >>> model.x = pyo.Var(pyo.RangeSet(model.n), within=pyo.Binary)
-   >>> def o_rule(model):
-   ...    return pyo.summation(model.x)
+   >>> def o_rule(model_name):
+   ...    return pyo.summation(model_name.x)
    >>> model.o = pyo.Objective(rule=o_rule)
    >>> model.c = pyo.ConstraintList()
    >>> SolverFactory('glpk').solve(model) # doctest: +SKIP
@@ -41,10 +41,10 @@ Repeated Solves
    ...        if pyo.value(model.x[j]) == 0:
    ...            expr += model.x[j]
    ...        else:
-   ...            expr += (1 - model.x[j])
-   ...    model.c.add( expr >= 1 )
+   ...            expr += 1 - model.x[j]
+   ...    model.c.add(expr >= 1)
    ...    results = opt.solve(model)
-   ...    print ("\n===== iteration",i)
+   ...    print("\n===== iteration", i)
    ...    model.display() # doctest: +SKIP
 
 To illustrate Python scripts for Pyomo we consider an example that is in
