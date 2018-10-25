@@ -1,7 +1,6 @@
 # @Import_symbols_for_pyomo
 # iterative1.py
 import pyomo.environ as pyo
-from pyomo.opt import SolverFactory
 # @Import_symbols_for_pyomo
 
 # @Call_SolverFactory_with_argument
@@ -46,13 +45,13 @@ for i in range(5):
         if pyo.value(instance.x[j]) == 0:
             expr += instance.x[j]
         else:
-            expr += (1-instance.x[j])
+            expr += 1 - instance.x[j]
 # @Iteratively_assign_and_test
 # @Add_expression_constraint
-    instance.c.add( expr >= 1 )
+    instance.c.add(expr >= 1)
 # @Add_expression_constraint
 # @Find_and_display_solution
     results = opt.solve(instance)
-    print ("\n===== iteration",i)
+    print("\n===== iteration", i)
     instance.display()
 # @Find_and_display_solution
