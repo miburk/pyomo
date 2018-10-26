@@ -1,10 +1,9 @@
 # iterative2.py
 
 import pyomo.environ as pyo
-from pyomo.opt import SolverFactory
 
 # Create a solver
-opt = pyo.SolverFactory('cplex')
+opt = pyo.SolverFactory('glpk')
 
 #
 # A simple model with binary variables and
@@ -13,8 +12,12 @@ opt = pyo.SolverFactory('cplex')
 model = pyo.AbstractModel()
 model.n = pyo.Param(default=4)
 model.x = pyo.Var(pyo.RangeSet(model.n), within=pyo.Binary)
+
+
 def o_rule(model):
-    return summation(model.x)
+    return pyo.summation(model.x)
+
+
 model.o = pyo.Objective(rule=o_rule)
 model.c = pyo.ConstraintList()
 

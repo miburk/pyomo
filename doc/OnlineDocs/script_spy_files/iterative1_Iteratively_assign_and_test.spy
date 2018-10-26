@@ -3,4 +3,4 @@
         if pyo.value(instance.x[j]) == 0:
             expr += instance.x[j]
         else:
-            expr += (1-instance.x[j])
+            expr += 1 - instance.x[j]
